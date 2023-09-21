@@ -12,3 +12,8 @@ function findShort(s){
     // Step 3: Return the length of the shortest word (which is the first element after sorting)
     return s[0].length
   }
+
+//not mine but really nice code
+// function findShort(s){
+//     return Math.min(...s.split(" ").map (s => s.length));
+// }
