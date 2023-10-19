@@ -25,4 +25,17 @@ function solve(arr) {
     // Return the modified array
     return arr;
   }
-  
+  function solve(arr){
+    return arr.filter((val,i) => arr.lastIndexOf(val) == i);
+}
+// Advantages of the First Approach:
+
+// It uses a Set to keep track of seen elements, which allows for constant-time (O(1)) lookup to check if an element has been seen before.
+// It iterates through the array only once, making it more efficient in terms of time complexity.
+// Advantages of the Second Approach:
+
+// It uses the built-in filter function, which can make the code more concise.
+// It avoids using additional data structures like Set, which may be beneficial in terms of memory usage for very large arrays.
+// Considerations:
+
+// The second approach relies on the fact that lastIndexOf is an O(n) operation. If the array is very large, this approach may be less efficient.
