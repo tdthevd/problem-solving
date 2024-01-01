@@ -1,0 +1,27 @@
+// A pangram is a sentence that contains every single letter of the alphabet at least once. For example, the sentence "The quick brown fox jumps over the lazy dog" is a pangram, because it uses the letters A-Z at least once (case is irrelevant).
+
+// Given a string, detect whether or not it is a pangram. Return True if it is, False if not. Ignore numbers and punctuation.
+
+function isPangram(string) {
+    // Function to check if a character is an alphabet letter
+    function isAlphabet(char) {
+      return char >= 'a' && char <= 'z';
+    }
+  
+    // Remove punctuation, numbers, and convert to lowercase
+    let cleanString = string
+      .toLowerCase()
+      .split('')
+      .filter(char => isAlphabet(char) || char === ' ')
+      .join('');
+  
+    // Check for pangram
+    let alphabet = 'abcdefghijklmnopqrstuvwxyz';
+    for (let char of alphabet) {
+      if (!cleanString.includes(char)) {
+        return false;
+      }
+    }
+  
+    return true;
+  }
