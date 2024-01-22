@@ -126,3 +126,42 @@ var merge = function(nums1, m, nums2, n) {
 // It avoids unnecessary copying and sorting of the entire array.
 // It leverages the fact that both input arrays are already sorted, allowing it to merge them in a single pass.
 // The space complexity is constant, as it doesn't require additional space proportional to the input sizes.
+
+// here is more optimized solution
+
+var merge = function(nums1, m, nums2, n) {
+    if (n === 0) {
+        return;
+    }
+
+    let i = m - 1; // Index for nums1
+    let j = n - 1; // Index for nums2
+    let k = m + n - 1; // Index for the merged result
+
+    // Merge from the end to the beginning
+    for (; i >= 0 && j >= 0; k--) {
+        if (nums1[i] > nums2[j]) {
+            nums1[k] = nums1[i--];
+        } else {
+            nums1[k] = nums2[j--];
+        }
+    }
+
+    // If there are remaining elements in nums2, copy them to nums1
+    while (j >= 0) {
+        nums1[k--] = nums2[j--];
+    }
+};
+
+// Explanation of changes:
+
+//     Early exit when no elements in nums2:
+//         Added a check at the beginning of the function to exit early if nums2 has no elements (n === 0). This prevents unnecessary processing when there's nothing to merge.
+
+//     Avoid unnecessary assignments:
+//         Modified the loop inside to decrement k inline with the assignments. This eliminates the need for a separate line to decrement k after each assignment, making the code more concise.
+
+//     Use a for loop for better readability:
+//         Replaced the while loop with a for loop for better readability. The loop conditions and the decrement of k are more explicit in a for loop, making the code easier to understand.
+
+// These changes aim to improve the code's readability and potentially provide a minor performance gain by avoiding unnecessary assignments and early exits. However, the impact on performance might not be significant for small datasets, and the primary benefit is in code clarity.
