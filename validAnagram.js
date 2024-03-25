@@ -59,3 +59,32 @@ var isAnagram = function(s, t) {
     return true;
 };
 
+// winner below 
+
+var isAnagram = function(s, t) {
+   // Check if the lengths of the two strings are equal
+   if (s.length !== t.length) {
+       return false; // If lengths are not equal, they cannot be anagrams
+   }
+   
+   // Create a map to store character frequencies for string s
+   const charFrequency = new Map();
+   
+   // Count frequencies of characters in string s
+   for (let char of s) {
+       charFrequency.set(char, (charFrequency.get(char) || 0) + 1);
+   }
+   
+   // Decrement frequencies for characters in string t
+   for (let char of t) {
+       // If the character doesn't exist in charFrequency or its frequency is already 0, return false
+       if (!charFrequency.has(char) || charFrequency.get(char) === 0) {
+           return false;
+       }
+       charFrequency.set(char, charFrequency.get(char) - 1);
+   }
+   
+   return true; // If all characters and their frequencies match, return true indicating that strings are anagrams
+};
+
+
