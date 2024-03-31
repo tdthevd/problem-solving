@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Message Decoder</title>
+<script>
+function decodeFromFile(inputFile) {
+    const fileInput = document.getElementById(inputFile);
+    const file = fileInput.files[0];
+
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+        const content = event.target.result;
+        const decodedMessage = decode(content);
+        document.getElementById("decodedMessage").innerText = decodedMessage;
+    };
+
+    reader.readAsText(file);
+}
+
+function decode(content) {
+    const lines = content.trim().split('\n');
+    const numberWordDict = {};
+
+    // Populate the dictionary
+    lines.forEach(line => {
+        const [number, word] = line.trim().split(' ');
+        numberWordDict[parseInt(number)] = word;
+    });
+
+    // Find the last numbers in each row of the pyramid
+    const lastNumbers = new Set();
+    for (let i = 1; i <= Object.keys(numberWordDict).length; i++) {
+        lastNumbers.add((i * (i + 1)) / 2);
+    }
+
+    // Extract the words corresponding to the last numbers
+    const decodedWords = [];
+    lastNumbers.forEach(number => {
+        if (numberWordDict[number]) {
+            decodedWords.push(numberWordDict[number]);
+        }
+    });
+
+    // Build the decoded message
+    const decodedMessage = decodedWords.join(' ');
+    return decodedMessage;
+}
+</script>
+</head>
+<body>
+<h1>Message Decoder</h1>
+<input type="file" id="inputFile" onchange="decodeFromFile('inputFile')" />
+<p><strong>Decoded Message:</strong> <span id="decodedMessage"></span></p>
+</body>
+</html>
+
